@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box {
+        position: absolute;
+        width: 350px;
+        height: 500px;
+        border: solid 1px skyblue;
+        background: url(../image/背景.png) repeat-y 0px -200px;
+        left: 730px;
+        top: 250px;
+
+    }
+
+    #feiji {
+        width: 80px;
+        height: 82px;
+        position: relative;
+        left: 141px;
+        top: 393px;
+    }
+
+    body {
+        margin: 0;
+        width: 1500px;
+        height: 900px;
+    }
+
+    .but {
+
+        position: absolute;
+        color: black;
+        z-index: 1;
+    }
+
+    .stop {
+        position: absolute;
+        margin-left: 150px;
+    }
+
+    p {
+        height: 30px;
+        width: 200px;
+        position: absolute;
+        left: 810px;
+        top: 220px;
+    }
+</style>
+
+<body>
+    <p style="margin: 0;">
+        <button class="but" onclick="oStart()">开始游戏</button>
+        <button class="stop" onclick="oStop()">暂停</button>
+    </p>
+
+
+    <div id="box">
+        <img src="../image/me1.png" alt="" id="feiji">
+    </div>
+
+    <script>
+        let num = 0;
+        let box = document.getElementById('box');
+        let feiji = document.getElementById('feiji');
+        let timer = null;
+
+
+        function oStart() {
+            if (timer == null) {
+                timer = setInterval(() => {
+                    num++;
+                    box.style.backgroundPosition = '0px ' + (-200 + num) + 'px'
+                }, 10)
+            }
+            console.log(timer)
+
+            window.document.onkeydown = function (e) {
+                var e = window.event;
+                console.log(e.keyCode);
+                if (e.keyCode == 87) {
+                    let top = feiji.offsetTop - 8;
+                    if (top <= 10) top = 10;
+                    feiji.style.top = top + 'px';
+                }
+                if (e.keyCode == 83) {
+                    let top = feiji.offsetTop + 8;
+                    if (top >= 420) top = 420;
+                    feiji.style.top = top + 'px';
+                }
+                if (e.keyCode == 65) {
+                    let left = feiji.offsetLeft - 8;
+                    if (left <= 5) left = 5;
+                    feiji.style.left = left + 'px';
+                }
+                if (e.keyCode == 68) {
+                    let left = feiji.offsetLeft + 8;
+                    if (left >= 265) left = 265;
+                    feiji.style.left = left + 'px';
+                }
+            }
+            
+        }
+
+        function oStop() {
+            clearInterval(timer)
+            timer = null;
+            window.document.onkeydown =function(e){
+                return 0;
+            }
+            
+        }
+
+
+    </script>
+</body>
+
+</html>
